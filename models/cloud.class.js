@@ -2,6 +2,7 @@ class Cloud extends MovableObject {
     y = 20;
     width = 600;
     height= 350;
+    speed = 0.13;
 
     constructor() {
         super().loadImage('../img/5.Fondo/Capas/4.nubes/1.png');
@@ -11,7 +12,7 @@ class Cloud extends MovableObject {
 
     animate() {
         setInterval(() => {
-            this.x -= 0.13;
+            this.x -= this.speed;
         }, 1000/60); 
     }
 }
