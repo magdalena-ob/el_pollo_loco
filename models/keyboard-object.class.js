@@ -1,4 +1,4 @@
-class Keyboard {
+class KeyboardObject {
     KEY_UP = false;
     KEY_DOWN = false;
     KEY_LEFT = false;
