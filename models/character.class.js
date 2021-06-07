@@ -8,6 +8,8 @@ class Character extends MovableObject {
         '../img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-25.png',
         '../img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-26.png',
     ];
+    world;
+    speed = 6;
 
     constructor() {
         super().loadImage('../img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/IDLE/I-1.png');
@@ -17,10 +19,24 @@ class Character extends MovableObject {
 
     animate() {
         setInterval(() => {
-            let i = this.currentImage % this.IMAGES_WALKING.length;
-            let path = this.IMAGES_WALKING[i];
-            this.img = this.imageCache[path];
-            this.currentImage++;
+            if(this.world.keyboard.KEY_RIGHT){
+                this.x += this.speed;
+                this.otherDirection = false;
+            }
+
+            if(this.world.keyboard.KEY_LEFT){
+                this.x -= this.speed;
+                this.otherDirection = true;
+            }
+        }, 1000/60);
+
+        setInterval(() => {
+            if (this.world.keyboard.KEY_RIGHT || this.world.keyboard.KEY_LEFT) {
+                let i = this.currentImage % this.IMAGES_WALKING.length;
+                let path = this.IMAGES_WALKING[i];
+                this.img = this.imageCache[path];
+                this.currentImage++;
+            }
         }, 100);
     }
 }
