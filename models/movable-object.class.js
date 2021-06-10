@@ -2,7 +2,7 @@ class MovableObject {
     x = 120;
     y = 250;
     img;
-    width = 120;
+    width = 100;
     height = 180;
     imageCache = {};
     speed = 0.13;

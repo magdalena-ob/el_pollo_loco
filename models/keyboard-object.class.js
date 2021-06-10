@@ -4,4 +4,6 @@ class KeyboardObject {
     KEY_LEFT = false;
     KEY_RIGHT = false;
     KEY_SPACE = false;
+
+    KEY_PRESS = false;;
 }

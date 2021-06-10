@@ -25,6 +25,9 @@ window.addEventListener('keydown', (e) =>{
     if(e.keyCode == 32) {
         keyboard.KEY_SPACE = true;
     }
+    if(e.keyCode == 38 || 40 || 37 || 39 || 32) {
+        keyboard.KEY_PRESS = true;
+    }
 });
 
 window.addEventListener('keyup', (e) =>{
