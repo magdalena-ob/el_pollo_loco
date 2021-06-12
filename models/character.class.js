@@ -32,6 +32,18 @@ class Character extends MovableObject {
         '../img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-19.png',
         '../img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-20.png'
     ];
+    IMAGES_JUMPING = [
+        '../img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-31.png',
+        '../img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-32.png',
+        '../img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-33.png',
+        '../img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-34.png',
+        '../img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-35.png',
+        '../img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-36.png',
+        '../img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-37.png',
+        '../img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-38.png',
+        '../img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-39.png',
+        '../img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-40.png'
+    ];
     AUDIO_WALKING = new Audio('../audio/running.mp3');
     world;
     speed = 6;
@@ -41,42 +53,50 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_STANDING);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_SLEEPING);
+        this.loadImages(this.IMAGES_JUMPING);
+        this.applyGravity();
         this.animate();
     }
 
     animate() {
         setInterval(() => {
             this.AUDIO_WALKING.pause();
-            if(this.world.keyboard.KEY_RIGHT && this.x < this.world.level.level_end_x){
-                this.x += this.speed;
-                this.otherDirection = false;
-                this.AUDIO_WALKING.play();
+            if (this.world.keyboard.KEY_RIGHT && this.x < this.world.level.level_end_x) {
+               this.moveRight();
+               this.otherDirection = false;
+               this.AUDIO_WALKING.play();
             }
 
-            if(this.world.keyboard.KEY_LEFT && this.x > 0){
-                this.x -= this.speed;
+            if (this.world.keyboard.KEY_LEFT && this.x > 0) {
+                this.moveLeft();
                 this.otherDirection = true;
                 this.AUDIO_WALKING.play();
             }
+
+            if(this.world.keyboard.KEY_SPACE && !this.isAboveGround()) {
+                this.jump();
+            }
+
             this.world.camera_x = -this.x + 100;
-        }, 1000/60);
+        }, 1000 / 60);
 
         setInterval(() => {
-            if (this.world.keyboard.KEY_RIGHT || this.world.keyboard.KEY_LEFT) {
-                let i = this.currentImage % this.IMAGES_WALKING.length;
-                let path = this.IMAGES_WALKING[i];
-                this.img = this.imageCache[path];
-                this.currentImage++;
-            } else if(this.world.keyboard.KEY_PRESS !== true) {
-                let i = this.currentImage % this.IMAGES_SLEEPING.length;
-                let path = this.IMAGES_SLEEPING[i];
-                this.img = this.imageCache[path];
-                this.currentImage++;
+            if (this.isAboveGround()) {
+                this.playAnimation(this.IMAGES_JUMPING);
             } else {
-                let i = this.currentImage % this.IMAGES_STANDING.length;
-                let path = this.IMAGES_STANDING[i];
-                this.img = this.imageCache[path];
-                this.currentImage++;
+                if (this.world.keyboard.KEY_RIGHT || this.world.keyboard.KEY_LEFT) {
+                    this.playAnimation(this.IMAGES_WALKING);
+                } else if (this.world.keyboard.KEY_PRESS !== true) {
+                    let i = this.currentImage % this.IMAGES_SLEEPING.length;
+                    let path = this.IMAGES_SLEEPING[i];
+                    this.img = this.imageCache[path];
+                    this.currentImage++;
+                } else {
+                    let i = this.currentImage % this.IMAGES_STANDING.length;
+                    let path = this.IMAGES_STANDING[i];
+                    this.img = this.imageCache[path];
+                    this.currentImage++;
+                }
             }
         }, 100);
     }
