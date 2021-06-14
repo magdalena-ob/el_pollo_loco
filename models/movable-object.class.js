@@ -9,6 +9,8 @@ class MovableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 1;
+    energy = 100;
+    lastCollision = 0;
 
     loadImage(path) {
         this.img = new Image();
@@ -44,6 +46,25 @@ class MovableObject {
             this.y < mo.y + mo.height;
     }
 
+    hit() {
+        this.energy -= 5;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastCollision = new Date().getTime();
+        }
+    }
+
+    isHurt() {
+        let timepassed = new Date().getTime() - this.lastCollision;
+        timepassed = timepassed / 1000;
+        return timepassed < 0.5;
+    }
+
+    isDead() {
+        return this.energy == 0;
+    }
+
     moveLeft() {
         this.x -= this.speed;
     }
@@ -53,7 +74,7 @@ class MovableObject {
     }
 
     playAnimation(images) {
-        let i = this.currentImage % this.IMAGES_WALKING.length;
+        let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;

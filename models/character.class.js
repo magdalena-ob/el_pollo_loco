@@ -44,6 +44,20 @@ class Character extends MovableObject {
         '../img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-39.png',
         '../img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-40.png'
     ];
+    IMAGES_HURT = [
+        '../img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-41.png',
+        '../img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-42.png',
+        '../img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-43.png'
+    ];
+    IMAGES_DEAD = [
+        '../img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-51.png',
+        '../img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-52.png',
+        '../img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-53.png',
+        '../img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-54.png',
+        '../img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-55.png',
+        '../img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-56.png',
+        '../img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-57.png'
+    ];
     AUDIO_WALKING = new Audio('../audio/running.mp3');
     world;
     speed = 6;
@@ -54,6 +68,8 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_SLEEPING);
         this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
         this.applyGravity();
         this.animate();
     }
@@ -62,9 +78,9 @@ class Character extends MovableObject {
         setInterval(() => {
             this.AUDIO_WALKING.pause();
             if (this.world.keyboard.KEY_RIGHT && this.x < this.world.level.level_end_x) {
-               this.moveRight();
-               this.otherDirection = false;
-               this.AUDIO_WALKING.play();
+                this.moveRight();
+                this.otherDirection = false;
+                this.AUDIO_WALKING.play();
             }
 
             if (this.world.keyboard.KEY_LEFT && this.x > 0) {
@@ -73,7 +89,7 @@ class Character extends MovableObject {
                 this.AUDIO_WALKING.play();
             }
 
-            if(this.world.keyboard.KEY_SPACE && !this.isAboveGround()) {
+            if (this.world.keyboard.KEY_SPACE && !this.isAboveGround()) {
                 this.jump();
             }
 
@@ -81,7 +97,11 @@ class Character extends MovableObject {
         }, 1000 / 60);
 
         setInterval(() => {
-            if (this.isAboveGround()) {
+            if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+            } else if(this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD);
+            } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {
                 if (this.world.keyboard.KEY_RIGHT || this.world.keyboard.KEY_LEFT) {
