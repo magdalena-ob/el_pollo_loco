@@ -6,7 +6,7 @@ class MovableObject extends DrawableObject {
     energy = 100;
     lastCollision = 0;
 
-    
+
     isColliding(mo) {
         return this.x + this.width > mo.x &&
             this.y + this.height > mo.y &&
@@ -58,10 +58,23 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        return this.y < 250;
+        if (this instanceof ThrowableObject) {
+            return true;
+        } else {
+            return this.y < 250;
+        }
     }
 
     jump() {
         this.speedY = 20;
+    }
+
+    throwBottle(){
+        setInterval(() =>{
+            if(this.world.keyboard.KEY_D){
+                let bottle = new ThrowableObject(this.world.character.x + 100, this.world.character.y +100);
+                this.world.throwableObject.push(bottle);
+            }
+        }, 200);
     }
 }
