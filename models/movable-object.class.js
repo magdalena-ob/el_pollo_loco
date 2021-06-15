@@ -69,12 +69,8 @@ class MovableObject extends DrawableObject {
         this.speedY = 20;
     }
 
-    throwBottle(){
-        setInterval(() =>{
-            if(this.world.keyboard.KEY_D){
-                let bottle = new ThrowableObject(this.world.character.x + 100, this.world.character.y +100);
-                this.world.throwableObject.push(bottle);
-            }
-        }, 200);
+    collectBottle(){
+        this.world.bottleBar.bottleEnergy++;
     }
+
 }

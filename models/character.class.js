@@ -59,6 +59,7 @@ class Character extends MovableObject {
         '../img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-57.png'
     ];
     AUDIO_WALKING = new Audio('../audio/running.mp3');
+    AUDIO_HURTING = new Audio('../audio/hurt.mp3');
     world;
     speed = 6;
 
@@ -99,6 +100,7 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
+                this.AUDIO_HURTING.play();
             } else if(this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isAboveGround()) {

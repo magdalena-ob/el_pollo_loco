@@ -12,9 +12,9 @@ class ThrowableObject extends MovableObject {
     }
 
     throw() {
-        this.speedY = 22;
+        this.speedY = 20;
         setInterval(() => {
-            this.x += 5;
+            this.x += 7;
         }, 25);
         this.AUDIO_THROWING.play();
     }
