@@ -8,7 +8,7 @@ class World {
     statusBar = new StatusBar();
     bottleBar = new BottleBar();
     throwableObjects = [];
-    AUDIO_BACKGROUND = new Audio('../audio/background.mp3');
+    AUDIO_BACKGROUND = new Audio('audio/background.mp3');
    
 
     constructor(canvas, keyboard) {
@@ -101,20 +101,18 @@ class World {
     }
 
     checkCollisonBottle() {
-        this.level.bottles.forEach((bottle) => {
+        this.level.bottles.forEach((bottle, index) => {
             if(this.character.isColliding(bottle)){
                 console.log('character caches bottle ', bottle);
                 this.character.collectBottle();
                 this.bottleBar.setPercentage(this.character.bottleAmount);
-                //if (this.character.takeBottle()){
-                    this.removeBottle(bottle);
-                //}
+                this.removeBottle(index);    
             }
         })
     }
 
-    removeBottle(bottle) {
-        this.level.bottles.splice(bottle, 1);
+    removeBottle(index) {
+        this.level.bottles.splice(index, 1);
         this.draw();
     }
 

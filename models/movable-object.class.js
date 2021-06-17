@@ -73,13 +73,8 @@ class MovableObject extends DrawableObject {
 
     collectBottle(){
         this.bottleAmount += 20;
-        //this.lastCollisionBottle = new Date().getTime();
     }
 
-    //takeBottle(){
-    //    let timepassed = new Date().getTime() - this.lastCollisionBottle;
-    //    timepassed = timepassed / 1000;
-    //    return timepassed < 0.5;
-    //}
+    
 
 }
