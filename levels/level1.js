@@ -6,7 +6,8 @@ const level1 = new Level(
         new Endboss()
     ],
     [
-        new Cloud()
+        new Cloud(),
+        
     ],
     [
         new BackgroundObject('../img/5.Fondo/Capas/5.cielo_1920-1080px.png', -719, 0),
@@ -41,8 +42,6 @@ const level1 = new Level(
         new BackgroundObject('../img/5.Fondo/Capas/1.suelo-fondo1/1.png', 719*4, 0)
     ],
     [
-        new Bottle(),
-        new Bottle(),
         new Bottle(),
         new Bottle(),
         new Bottle(),

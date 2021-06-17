@@ -5,6 +5,8 @@ class MovableObject extends DrawableObject {
     acceleration = 1;
     energy = 100;
     lastCollision = 0;
+    bottleAmount = 0;
+    lastCollisionBottle = 0;
 
 
     isColliding(mo) {
@@ -70,7 +72,14 @@ class MovableObject extends DrawableObject {
     }
 
     collectBottle(){
-        this.world.bottleBar.bottleEnergy++;
+        this.bottleAmount += 20;
+        //this.lastCollisionBottle = new Date().getTime();
     }
+
+    //takeBottle(){
+    //    let timepassed = new Date().getTime() - this.lastCollisionBottle;
+    //    timepassed = timepassed / 1000;
+    //    return timepassed < 0.5;
+    //}
 
 }

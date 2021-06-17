@@ -9,6 +9,7 @@ class World {
     bottleBar = new BottleBar();
     throwableObjects = [];
     AUDIO_BACKGROUND = new Audio('../audio/background.mp3');
+   
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -17,6 +18,7 @@ class World {
         this.draw();
         this.setWorld();
         this.checkCollision();
+        this.checkCollisonBottle();
         this.run();
         this.AUDIO_BACKGROUND.play();
         }
@@ -84,7 +86,8 @@ class World {
     run() {
         setInterval(() => {
             this.throwBottle();
-            this.checkCollision();     
+            this.checkCollision(); 
+            this.checkCollisonBottle();   
         }, 200);
     }
 
@@ -100,9 +103,19 @@ class World {
     checkCollisonBottle() {
         this.level.bottles.forEach((bottle) => {
             if(this.character.isColliding(bottle)){
-                this.bottleBar.setPercentage(this.bottleBar.bottleEnergy);
+                console.log('character caches bottle ', bottle);
+                this.character.collectBottle();
+                this.bottleBar.setPercentage(this.character.bottleAmount);
+                //if (this.character.takeBottle()){
+                    this.removeBottle(bottle);
+                //}
             }
         })
+    }
+
+    removeBottle(bottle) {
+        this.level.bottles.splice(bottle, 1);
+        this.draw();
     }
 
     throwBottle() {
