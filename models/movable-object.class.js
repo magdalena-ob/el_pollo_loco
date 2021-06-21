@@ -7,6 +7,7 @@ class MovableObject extends DrawableObject {
     lastCollision = 0;
     bottleAmount = 0;
     lastCollisionBottle = 0;
+    AUDIO_BOTTLE = new Audio('audio/bottle.mp3')
 
 
     isColliding(mo) {
@@ -73,8 +74,11 @@ class MovableObject extends DrawableObject {
 
     collectBottle(){
         this.bottleAmount += 20;
+        this.AUDIO_BOTTLE.play();
     }
 
-    
+    reduceBottle(){
+        this.bottleAmount -= 20;
+    }
 
 }

@@ -8,7 +8,7 @@ class World {
     statusBar = new StatusBar();
     bottleBar = new BottleBar();
     throwableObjects = [];
-    AUDIO_BACKGROUND = new Audio('audio/background.mp3');
+    //AUDIO_BACKGROUND = new Audio('audio/background.mp3');
    
 
     constructor(canvas, keyboard) {
@@ -20,7 +20,8 @@ class World {
         this.checkCollision();
         this.checkCollisonBottle();
         this.run();
-        this.AUDIO_BACKGROUND.play();
+       // this.AUDIO_BACKGROUND.play();
+       // this.AUDIO_BACKGROUND.volume = 0.04;  
         }
   
     setWorld() {
@@ -67,7 +68,7 @@ class World {
         mo.drawFrame(this.ctx);
 
         if (mo.otherDirection) {
-            this.flimImageBack(mo);
+            this.flimImageBack(mo); 
         }
     }
 
@@ -117,9 +118,11 @@ class World {
     }
 
     throwBottle() {
-        if (this.keyboard.KEY_D) {
+        if (this.keyboard.KEY_D && this.bottleBar.percentage > 0) {
             let bottle = new ThrowableObject(this.character.x + 20, this.character.y + 80);
                  this.throwableObjects.push(bottle);
+                 this.character.reduceBottle();
+                 this.bottleBar.setPercentage(this.character.bottleAmount);
         }
 
     }
