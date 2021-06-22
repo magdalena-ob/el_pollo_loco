@@ -7,6 +7,7 @@ class MovableObject extends DrawableObject {
     lastCollision = 0;
     bottleAmount = 0;
     lastCollisionBottle = 0;
+    coinAmount = 0;
     AUDIO_BOTTLE = new Audio('audio/bottle.mp3')
 
 
@@ -79,6 +80,10 @@ class MovableObject extends DrawableObject {
 
     reduceBottle(){
         this.bottleAmount -= 20;
+    }
+
+    collectCoin(){
+        this.coinAmount += 10;
     }
 
 }

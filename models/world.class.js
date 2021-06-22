@@ -7,9 +7,11 @@ class World {
     camera_x = 0;
     statusBar = new StatusBar();
     bottleBar = new BottleBar();
+    coinBar = new CoinBar();
     throwableObjects = [];
+    chickenAlive = true;
     //AUDIO_BACKGROUND = new Audio('audio/background.mp3');
-   
+
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -20,10 +22,10 @@ class World {
         this.checkCollision();
         this.checkCollisonBottle();
         this.run();
-       // this.AUDIO_BACKGROUND.play();
-       // this.AUDIO_BACKGROUND.volume = 0.04;  
-        }
-  
+        // this.AUDIO_BACKGROUND.play();
+        // this.AUDIO_BACKGROUND.volume = 0.04;  
+    }
+
     setWorld() {
         this.character.world = this;
     }
@@ -37,11 +39,14 @@ class World {
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.bottles);
+        this.addObjectsToMap(this.level.coins);
+
 
         this.ctx.translate(-this.camera_x, 0);
         //-----space for fixed objects-----
         this.addToMap(this.statusBar);
         this.addToMap(this.bottleBar);
+        this.addToMap(this.coinBar);
         this.ctx.translate(this.camera_x, 0);
 
         this.addToMap(this.character);
@@ -68,7 +73,7 @@ class World {
         mo.drawFrame(this.ctx);
 
         if (mo.otherDirection) {
-            this.flimImageBack(mo); 
+            this.flimImageBack(mo);
         }
     }
 
@@ -87,43 +92,69 @@ class World {
     run() {
         setInterval(() => {
             this.throwBottle();
-            this.checkCollision(); 
-            this.checkCollisonBottle();   
+            this.checkCollision();
+            this.checkCollisonBottle();
+            this.checkCollisonCoin();
         }, 200);
     }
 
     checkCollision() {
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                this.statusBar.setPercentage(this.character.energy);
+        this.level.enemies.forEach((enemy, index) => {
+            if (this.chickenAlive) {
+                if (this.character.isColliding(enemy) && !this.character.isAboveGround()) {
+                    this.character.hit();
+                    this.statusBar.setPercentage(this.character.energy);
+                } else if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
+                    console.log('chicken dies ', enemy);
+                    this.chickenDied()
+                    //this.removeChicken(index);
+                }
             }
         });
     }
 
+    chickenDied() {
+        this.chickenAlive = false;
+    }
+
+    //removeChicken(index) {
+    //    this.level.enemies.splice(index, 1);
+    //}
+
     checkCollisonBottle() {
         this.level.bottles.forEach((bottle, index) => {
-            if(this.character.isColliding(bottle)){
-                console.log('character caches bottle ', bottle);
+            if (this.character.isColliding(bottle)) {
                 this.character.collectBottle();
                 this.bottleBar.setPercentage(this.character.bottleAmount);
-                this.removeBottle(index);    
+                this.removeBottle(index);
             }
         })
     }
 
     removeBottle(index) {
         this.level.bottles.splice(index, 1);
-        this.draw();
     }
 
     throwBottle() {
         if (this.keyboard.KEY_D && this.bottleBar.percentage > 0) {
             let bottle = new ThrowableObject(this.character.x + 20, this.character.y + 80);
-                 this.throwableObjects.push(bottle);
-                 this.character.reduceBottle();
-                 this.bottleBar.setPercentage(this.character.bottleAmount);
+            this.throwableObjects.push(bottle);
+            this.character.reduceBottle();
+            this.bottleBar.setPercentage(this.character.bottleAmount);
         }
+    }
 
+    checkCollisonCoin() {
+        this.level.coins.forEach((coin, index) => {
+            if (this.character.isColliding(coin)) {
+                this.character.collectCoin();
+                this.coinBar.setPercentage(this.character.coinAmount);
+                this.removeCoin(index);
+            }
+        })
+    }
+
+    removeCoin(index) {
+        this.level.coins.splice(index, 1);
     }
 }
