@@ -9,13 +9,14 @@ class MovableObject extends DrawableObject {
     lastCollisionBottle = 0;
     coinAmount = 0;
     AUDIO_BOTTLE = new Audio('audio/bottle.mp3')
+    AUDIO_COIN = new Audio('audio/coin.mp3')
 
 
     isColliding(mo) {
         return this.x + this.width > mo.x &&
             this.y + this.height > mo.y &&
             this.x < mo.x &&
-            this.y < mo.y + mo.height;
+            this.y + 80 < mo.y + mo.height;
     }
 
     hit() {
@@ -84,6 +85,7 @@ class MovableObject extends DrawableObject {
 
     collectCoin(){
         this.coinAmount += 10;
+        this.AUDIO_COIN.play();
     }
 
 }

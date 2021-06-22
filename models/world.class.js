@@ -9,7 +9,6 @@ class World {
     bottleBar = new BottleBar();
     coinBar = new CoinBar();
     throwableObjects = [];
-    chickenAlive = true;
     //AUDIO_BACKGROUND = new Audio('audio/background.mp3');
 
 
@@ -40,7 +39,6 @@ class World {
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.coins);
-
 
         this.ctx.translate(-this.camera_x, 0);
         //-----space for fixed objects-----
@@ -100,26 +98,28 @@ class World {
 
     checkCollision() {
         this.level.enemies.forEach((enemy, index) => {
-            if (this.chickenAlive) {
+            if (enemy.chickenAlive) {
                 if (this.character.isColliding(enemy) && !this.character.isAboveGround()) {
                     this.character.hit();
                     this.statusBar.setPercentage(this.character.energy);
                 } else if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
                     console.log('chicken dies ', enemy);
-                    this.chickenDied()
-                    //this.removeChicken(index);
+                    this.chickenDied(enemy)
+                    this.removeChicken(index);
                 }
             }
         });
     }
 
-    chickenDied() {
-        this.chickenAlive = false;
+    chickenDied(enemy) {
+        return enemy.chickenAlive = false;
+     }
+    
+    removeChicken(index) {
+        setTimeout(() => {
+            this.level.enemies.splice(index, 1);
+        }, 2000);  
     }
-
-    //removeChicken(index) {
-    //    this.level.enemies.splice(index, 1);
-    //}
 
     checkCollisonBottle() {
         this.level.bottles.forEach((bottle, index) => {
