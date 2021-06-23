@@ -53,3 +53,13 @@ window.addEventListener('keyup', (e) =>{
         keyboard.KEY_D = false;
     }
 });
+
+//Startscreen open and close story about Pepe
+
+function openStory() {
+    document.getElementById('story').classList.remove('d-none');
+}
+
+function closeStory() {
+    document.getElementById('story').classList.add('d-none');
+}

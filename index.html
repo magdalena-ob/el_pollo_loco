@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Pollo Loco</title>
-    <link rel="icon" href="img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png" type="image/png">
+    <link rel="icon"
+        href="img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png"
+        type="image/png">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Boogaloo&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -31,38 +33,35 @@
 </head>
 
 <body onload="init()">
-    <h1>El Pollo Loco</h1>
-    <div class="music">
-     Music <img src="icon/speaker.png">
-    </div>
-    <div class="sound">
-     Sound   <img src="icon/speaker.png">
-    </div>
-
-    <div class="manual">
-        <table>
-            <tr>
-                <td>RUN:</td>
-                <td>Arrow right/left</td>
-            </tr>
-            <tr>
-                <td>JUMP:</td>
-                <td>Space bar</td>
-            </tr>
-            <tr>
-                <td>THROW:</td>
-                <td>D</td>
-            </tr>
-        </table>
-        <div class="info">
-            <img src="icon/info.png">
+    <div class="description">
+        <div>Help Pepe to collect as many bottles and coins as possible!</div>
+        <div class="book" onclick="openStory()">
+            <img src="icon/story.png">
         </div>
     </div>
-    
+    <div class="d-none story" id="story">
+        <p>The fearless Pepe is on his way through the desert, but he needs your help.<br> It is said, that there live crazy chickens and a very angry, big chicken also called as "el pollo loco".<br>
+            Help Pepe to collect as many bottles and coins as possible and try to avoid the chickens. You can destroy them by jumping on them.<br> When you come across "el pollo loco" defeat it by shooting it with tabasco sauce.<br>
+            Good luck!
+         </p>
+        <button onclick="closeStory()">CLOSE BOOK</button>
+    </div>
+    <div class="sound">
+        <div class="mute">
+            <div>music</div> <img src="icon/speaker.png">
+        </div>
+        <div class="mute">
+            <div>sound</div> <img src="icon/speaker.png">
+        </div>
+    </div>
 
     <canvas id="canvas" width="720" height="480">
 
     </canvas>
+
+    <div class="manual">
+        <div>RUN: arrow right/left | JUMP: space bar | THROW: D</div>
+    </div>
 </body>
 
 </html>
