@@ -8,7 +8,10 @@ class World {
     statusBar = new StatusBar();
     bottleBar = new BottleBar();
     coinBar = new CoinBar();
+    endbossBar = new EndbossStatusBar();
     throwableObjects = [];
+    endBoss = this.level.enemies[this.level.enemies.length -1];
+    
     //AUDIO_BACKGROUND = new Audio('audio/background.mp3');
 
 
@@ -39,6 +42,7 @@ class World {
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.coins);
+        this.addToMap(this.endbossBar);
 
         this.ctx.translate(-this.camera_x, 0);
         //-----space for fixed objects-----
@@ -93,6 +97,8 @@ class World {
             this.checkCollision();
             this.checkCollisonBottle();
             this.checkCollisonCoin();
+            this.calculateCharacterPosition();
+            this.checkCollisionBottleEndboss();
         }, 200);
     }
 
@@ -103,7 +109,6 @@ class World {
                     this.character.hit();
                     this.statusBar.setPercentage(this.character.energy);
                 } else if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
-                    console.log('chicken dies ', enemy);
                     this.chickenDied(enemy)
                     this.removeChicken(index);
                 }
@@ -157,4 +162,38 @@ class World {
     removeCoin(index) {
         this.level.coins.splice(index, 1);
     }
+
+    calculateCharacterPosition(){
+        if(this.character.x > this.level.level_end_x - 100) {
+            console.log('character is near pollo loco');
+            this.endBoss.characterNearEndboss = true;
+        }
+    }
+
+    checkCollisionBottleEndboss() {
+        this.throwableObjects.forEach((bottle) => {
+            if(this.isCollidingBottle(bottle)) {
+                console.log('hit endboss');
+                this.endBoss.hitEndboss();
+            }
+        })
+    }
+
+    isCollidingBottle(bottle) {
+        return bottle.x + bottle.width > this.endBoss.x &&
+            bottle.y + bottle.height < this.endBoss.y + this.endBoss.height - 80 &&
+            bottle.y + bottle.height > this.endBoss.y &&
+            bottle.x + bottle.width < this.endBoss.x + this.endBoss.width;
+    }
+
+    hitEndboss() {
+        this.endBoss.energyEndboss -= 5;
+        if (this.endBoss.energyEndboss < 0) {
+            this.endBoss.energyEndboss = 0;
+        } else {
+            this.endBoss.lastCollisionEndboss = new Date().getTime();
+        }
+    }
+
+ 
 }

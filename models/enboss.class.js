@@ -1,8 +1,12 @@
-class Endboss extends MovableObject{
+class Endboss extends MovableObject {
     height = 300;
     width = 250;
     y = 145;
     currentImage = 0;
+    endbossAlive = true;
+    characterNearEndboss = false;
+    energyEndboss = 100;
+    lastCollisionEndboss = 0;
 
     IMAGES_ALERT = [
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/1.Alerta/G5.png',
@@ -18,7 +22,7 @@ class Endboss extends MovableObject{
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/1.Caminata/G1.png',
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/1.Caminata/G2.png',
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/1.Caminata/G3.png',
-        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/1.Caminata/G4.png' 
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/1.Caminata/G4.png'
     ];
     IMAGES_ATTACK = [
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/2.Ataque/G13.png',
@@ -41,20 +45,66 @@ class Endboss extends MovableObject{
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/4.Muerte/G26.png'
     ];
 
-    constructor(){
+    //AUDIO_DANGER = new Audio('audio/danger_big_boss.mp3');
+    AUDIO_SCREAM = new Audio('audio/scream.mp3');
+
+    constructor() {
         super().loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = 6000;
+        this.x = 6500;
+        this.speed = 2;
         this.animate();
     }
 
     animate() {
         setInterval(() => {
-            this.playAnimation(this.IMAGES_ALERT);
+            if (this.characterNearEndboss && this.x > 6000) {
+                this.moveLeft();
+            }
+        }, 1000 / 60);
+
+        setInterval(() => {
+            if (this.endbossIsHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+            } else if (this.endbossIsDead()) {
+                this.playAnimation(this.IMAGES_DEAD);
+                setTimeout(() => {
+                    this.applyGravity();
+                }, 2000);
+            } else {
+                if (this.characterNearEndboss && this.x > 6000) {
+                    this.playAnimation(this.IMAGES_WALKING);
+                    this.AUDIO_SCREAM.play();
+                } else if (this.x <= 6000) {
+                    this.playAnimation(this.IMAGES_ALERT);
+                }
+            }
         }, 200);
     }
+
+    hitEndboss() {
+        this.energyEndboss -= 5;
+        if (this.energyEndboss < 0) {
+            this.energyEndboss = 0;
+        } else {
+            this.lastCollisionEndboss = new Date().getTime();
+        }
+        console.log(this.energyEndboss);
+    }
+
+    endbossIsHurt() {
+        let timepassed = new Date().getTime() - this.lastCollisionEndboss;
+        timepassed = timepassed / 1000;
+        return timepassed < 0.5;
+    }
+
+    endbossIsDead() {
+        return this.energyEndboss == 0;
+    }
+
+
 }

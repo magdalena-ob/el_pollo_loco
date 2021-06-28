@@ -109,6 +109,9 @@ class Character extends MovableObject {
                 this.AUDIO_HURTING.volume = 0.2;
             } else if(this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+                setTimeout(() => {
+                    this.applyGravity();
+                }, 2000);
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {

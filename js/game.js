@@ -55,7 +55,6 @@ window.addEventListener('keyup', (e) =>{
 });
 
 //Startscreen open and close story about Pepe
-
 function openStory() {
     document.getElementById('story').classList.remove('d-none');
 }

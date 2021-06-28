@@ -6,7 +6,7 @@ class MovableObject extends DrawableObject {
     energy = 100;
     lastCollision = 0;
     bottleAmount = 0;
-    lastCollisionBottle = 0;
+    //lastCollisionBottle = 0;
     coinAmount = 0;
     AUDIO_BOTTLE = new Audio('audio/bottle.mp3')
     AUDIO_COIN = new Audio('audio/coin.mp3')
@@ -63,7 +63,9 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        if (this instanceof ThrowableObject) {
+        if (this instanceof ThrowableObject || this instanceof Endboss) {
+            return true;
+        } else if(this.isDead()){
             return true;
         } else {
             return this.y < 250;
@@ -75,12 +77,12 @@ class MovableObject extends DrawableObject {
     }
 
     collectBottle(){
-        this.bottleAmount += 20;
+        this.bottleAmount += 10;
         this.AUDIO_BOTTLE.play();
     }
 
     reduceBottle(){
-        this.bottleAmount -= 20;
+        this.bottleAmount -= 10;
     }
 
     collectCoin(){
