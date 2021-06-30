@@ -12,8 +12,9 @@ class World {
     throwableObjects = [];
     endBoss = this.level.enemies[this.level.enemies.length - 1];
     
-
+    AUDIO_CHICKEN = new Audio('audio/chicken.mp3');
     //AUDIO_BACKGROUND = new Audio('audio/background.mp3');
+    
 
 
     constructor(canvas, keyboard) {
@@ -103,6 +104,7 @@ class World {
             this.checkBottleAvailable();
             this.checkCollisionEndboss();
             this.timePassedSinceThrowEvent();
+            this.checkChickenPosition();
         }, 200);
     }
 
@@ -169,7 +171,6 @@ class World {
 
     calculateCharacterPosition() {
         if (this.character.x > this.level.level_end_x - 100) {
-            console.log('character is near pollo loco');
             this.endBoss.characterNearEndboss = true;
         }
     }
@@ -218,5 +219,20 @@ class World {
         if (this.keyboard.KEY_D){
             this.endBoss.lastTimePressedD = new Date().getTime();
         }
+    }
+
+    checkChickenPosition() {
+        let chicken = this.level.enemies;
+        
+        for (let i = 0; i < chicken.length - 1; i++) {
+             if(this.chickenisNear(chicken, i)){
+                this.AUDIO_CHICKEN.play();
+            }
+        }
+    }
+
+    chickenisNear(chicken, i){
+        return this.character.x > chicken[i].x - 200 &&
+            this.character.x + this.character.width < chicken[i].x + chicken[i].width;
     }
 }

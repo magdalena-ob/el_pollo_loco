@@ -95,7 +95,7 @@ class MovableObject extends DrawableObject {
     }
 
     collectCoin(){
-        this.coinAmount += 10;
+        this.coinAmount += 5;
         this.AUDIO_COIN.play();
     }
 
