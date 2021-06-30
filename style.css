@@ -3,10 +3,9 @@ body {
     flex-direction: column;
     align-items: center;
     font-family: 'Boogaloo', cursive;
-    color: #819745;
-    background-color: #fbd79e;
-    /*background-color: #c76758;*/
-    background-image: url('img/background/background.png');
+    color: #a0220a;
+    background-color: #f0984b;
+    /*background-image: url('img/background/background.png');*/
     background-repeat: no-repeat;
     background-size: cover;
     margin: 0px;
@@ -43,8 +42,9 @@ canvas {
 }
 
 .manual {
-    background-color: #4191295c;
-    color: black;
+    /*background-color: #4191295c;*/
+    background-color: #679b16;
+    /*color: black;*/
     font-size: 24px;
     width: 720px;
     height: 40px;
@@ -53,8 +53,9 @@ canvas {
 
 .description {
     width: 720px;
-    background-color: #4191295c;
-    color: black;
+    /*background-color: #4191295c;*/
+    background-color: #ffcc01;
+    /*color: black;*/
     font-size: 18px;
     display: flex;
     align-items: center;

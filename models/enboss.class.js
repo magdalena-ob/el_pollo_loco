@@ -7,6 +7,9 @@ class Endboss extends MovableObject {
     characterNearEndboss = false;
     energyEndboss = 100;
     lastCollisionEndboss = 0;
+    bottleAvailable = false;
+    //timeToAttack = false;
+    lastTimePressedD = 0;
 
     IMAGES_ALERT = [
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/1.Alerta/G5.png',
@@ -45,8 +48,8 @@ class Endboss extends MovableObject {
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/4.Muerte/G26.png'
     ];
 
-    //AUDIO_DANGER = new Audio('audio/danger_big_boss.mp3');
     AUDIO_SCREAM = new Audio('audio/scream.mp3');
+    AUDIO_HURT = new Audio('audio/endboss_hurt.mp3');
 
     constructor() {
         super().loadImage(this.IMAGES_ALERT[0]);
@@ -70,20 +73,38 @@ class Endboss extends MovableObject {
         setInterval(() => {
             if (this.endbossIsHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
+                this.AUDIO_HURT.play();
+                if (!this.endbossIsDead()) {
+                    setTimeout(() => {
+                        this.playAnimation(this.IMAGES_ATTACK);
+                        this.AUDIO_SCREAM.play();
+                        this.x -= 20;
+                    }, 2000);
+                }
             } else if (this.endbossIsDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 setTimeout(() => {
                     this.applyGravity();
                 }, 2000);
+            } else if (!this.bottleAvailable && this.x <= 6000) {
+                this.playAnimation(this.IMAGES_ATTACK);
+                this.AUDIO_SCREAM.play();
+                this.x -= 15;
             } else {
                 if (this.characterNearEndboss && this.x > 6000) {
                     this.playAnimation(this.IMAGES_WALKING);
                     this.AUDIO_SCREAM.play();
+                } else if(!this.pressedD() && this.x <= 6000){
+                    this.playAnimation(this.IMAGES_ATTACK);
+                    this.AUDIO_SCREAM.play();
+                    this.x -= 20;
                 } else if (this.x <= 6000) {
                     this.playAnimation(this.IMAGES_ALERT);
                 }
             }
         }, 200);
+
+
     }
 
     hitEndboss() {
@@ -104,6 +125,12 @@ class Endboss extends MovableObject {
 
     endbossIsDead() {
         return this.energyEndboss == 0;
+    }
+
+    pressedD(){
+        let timepassed = new Date().getTime() - this.lastTimePressedD;
+        timepassed = timepassed / 1000;
+        return timepassed < 6;
     }
 
 

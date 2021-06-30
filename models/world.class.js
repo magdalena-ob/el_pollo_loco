@@ -10,8 +10,9 @@ class World {
     coinBar = new CoinBar();
     endbossBar = new EndbossStatusBar();
     throwableObjects = [];
-    endBoss = this.level.enemies[this.level.enemies.length -1];
+    endBoss = this.level.enemies[this.level.enemies.length - 1];
     
+
     //AUDIO_BACKGROUND = new Audio('audio/background.mp3');
 
 
@@ -99,6 +100,9 @@ class World {
             this.checkCollisonCoin();
             this.calculateCharacterPosition();
             this.checkCollisionBottleEndboss();
+            this.checkBottleAvailable();
+            this.checkCollisionEndboss();
+            this.timePassedSinceThrowEvent();
         }, 200);
     }
 
@@ -118,12 +122,12 @@ class World {
 
     chickenDied(enemy) {
         return enemy.chickenAlive = false;
-     }
-    
+    }
+
     removeChicken(index) {
         setTimeout(() => {
             this.level.enemies.splice(index, 1);
-        }, 2000);  
+        }, 2000);
     }
 
     checkCollisonBottle() {
@@ -163,8 +167,8 @@ class World {
         this.level.coins.splice(index, 1);
     }
 
-    calculateCharacterPosition(){
-        if(this.character.x > this.level.level_end_x - 100) {
+    calculateCharacterPosition() {
+        if (this.character.x > this.level.level_end_x - 100) {
             console.log('character is near pollo loco');
             this.endBoss.characterNearEndboss = true;
         }
@@ -172,7 +176,7 @@ class World {
 
     checkCollisionBottleEndboss() {
         this.throwableObjects.forEach((bottle) => {
-            if(this.isCollidingBottle(bottle)) {
+            if (this.isCollidingBottle(bottle)) {
                 console.log('hit endboss');
                 this.endBoss.hitEndboss();
             }
@@ -186,14 +190,33 @@ class World {
             bottle.x + bottle.width < this.endBoss.x + this.endBoss.width;
     }
 
-    hitEndboss() {
-        this.endBoss.energyEndboss -= 5;
-        if (this.endBoss.energyEndboss < 0) {
-            this.endBoss.energyEndboss = 0;
+
+    checkBottleAvailable() {
+        if (this.bottleBar.percentage == 0) {
+            this.endBoss.bottleAvailable = false;
         } else {
-            this.endBoss.lastCollisionEndboss = new Date().getTime();
+            this.endBoss.bottleAvailable = true;
         }
     }
 
- 
+    checkCollisionEndboss() {
+        if (this.isCollidingEndboss()) {
+            console.log('endboss hit pepe');
+            this.character.hitByEndboss();
+            this.statusBar.setPercentage(this.character.energy);
+        }
+    }
+
+    isCollidingEndboss() {
+        return this.character.x + this.character.width > this.endBoss.x &&
+            this.character.y + this.character.height < this.endBoss.y + this.endBoss.height &&
+            this.character.y + this.character.height > this.endBoss.y &&
+            this.character.x + this.character.width < this.endBoss.x + this.endBoss.width;
+    }
+
+    timePassedSinceThrowEvent() {
+        if (this.keyboard.KEY_D){
+            this.endBoss.lastTimePressedD = new Date().getTime();
+        }
+    }
 }

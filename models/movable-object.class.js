@@ -6,10 +6,9 @@ class MovableObject extends DrawableObject {
     energy = 100;
     lastCollision = 0;
     bottleAmount = 0;
-    //lastCollisionBottle = 0;
     coinAmount = 0;
-    AUDIO_BOTTLE = new Audio('audio/bottle.mp3')
-    AUDIO_COIN = new Audio('audio/coin.mp3')
+    AUDIO_BOTTLE = new Audio('audio/bottle.mp3');
+    AUDIO_COIN = new Audio('audio/coin.mp3');
 
 
     isColliding(mo) {
@@ -21,6 +20,15 @@ class MovableObject extends DrawableObject {
 
     hit() {
         this.energy -= 5;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastCollision = new Date().getTime();
+        }
+    }
+
+    hitByEndboss() {
+        this.energy -= 20;
         if (this.energy < 0) {
             this.energy = 0;
         } else {
@@ -83,6 +91,7 @@ class MovableObject extends DrawableObject {
 
     reduceBottle(){
         this.bottleAmount -= 10;
+
     }
 
     collectCoin(){
