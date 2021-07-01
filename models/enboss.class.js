@@ -108,7 +108,7 @@ class Endboss extends MovableObject {
     }
 
     hitEndboss() {
-        this.energyEndboss -= 5;
+        this.energyEndboss -= 3;
         if (this.energyEndboss < 0) {
             this.energyEndboss = 0;
         } else {

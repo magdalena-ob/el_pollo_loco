@@ -8,9 +8,9 @@ class World {
     statusBar = new StatusBar();
     bottleBar = new BottleBar();
     coinBar = new CoinBar();
-    endbossBar = new EndbossStatusBar();
     throwableObjects = [];
     endBoss = this.level.enemies[this.level.enemies.length - 1];
+    endbossBar = new EndbossStatusBar(this.endBoss.x + 100, this.endBoss.y - 50);
     
     AUDIO_CHICKEN = new Audio('audio/chicken.mp3');
     //AUDIO_BACKGROUND = new Audio('audio/background.mp3');

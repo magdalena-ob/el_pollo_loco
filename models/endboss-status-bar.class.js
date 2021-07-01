@@ -1,10 +1,12 @@
 class EndbossStatusBar extends DrawableObject {
     percentage = 100;
 
-    constructor() {
+    constructor(x,y) {
         super().loadImage('img/7.Marcadores/Marcadorvida_enemy/Naranja.png'); 
-        this.x = 6100;
-        this.y = 150;
+        //this.x = 6100;
+        //this.y = 150;
+        this.x = x;
+        this.y = y;
         this.width = 140;
         this.height = 40;
         //this.setPercentage(100);
