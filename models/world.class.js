@@ -11,6 +11,7 @@ class World {
     throwableObjects = [];
     endBoss = this.level.enemies[this.level.enemies.length - 1];
     endbossBar = new EndbossStatusBar(this.endBoss.x + 100, this.endBoss.y - 50);
+    gameOver = new GameOver();
     
     AUDIO_CHICKEN = new Audio('audio/chicken.mp3');
     //AUDIO_BACKGROUND = new Audio('audio/background.mp3');
@@ -51,6 +52,11 @@ class World {
         this.addToMap(this.statusBar);
         this.addToMap(this.bottleBar);
         this.addToMap(this.coinBar);
+
+        if(this.gameOver.gameFinished && this.gameOver.youLost) {
+            this.addToMap(this.gameOver);
+        }
+
         this.ctx.translate(this.camera_x, 0);
 
         this.addToMap(this.character);
@@ -225,7 +231,7 @@ class World {
         let chicken = this.level.enemies;
         
         for (let i = 0; i < chicken.length - 1; i++) {
-             if(this.chickenisNear(chicken, i)){
+             if(this.chickenisNear(chicken, i) && !this.gameOver.gameFinished){
                 this.AUDIO_CHICKEN.play();
             }
         }

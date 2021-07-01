@@ -8,7 +8,6 @@ class Endboss extends MovableObject {
     energyEndboss = 100;
     lastCollisionEndboss = 0;
     bottleAvailable = false;
-    //timeToAttack = false;
     lastTimePressedD = 0;
 
     IMAGES_ALERT = [
@@ -83,6 +82,7 @@ class Endboss extends MovableObject {
                 }
             } else if (this.endbossIsDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+                this.AUDIO_SCREAM.pause();
                 setTimeout(() => {
                     this.applyGravity();
                 }, 2000);
@@ -103,8 +103,6 @@ class Endboss extends MovableObject {
                 }
             }
         }, 200);
-
-
     }
 
     hitEndboss() {

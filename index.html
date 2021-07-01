@@ -30,6 +30,7 @@
     <script src="models/throwable-object.class.js"></script>
     <script src="models/bottle.class.js"></script>
     <script src="models/coin.class.js"></script>
+    <script src="models/game-over.class.js"></script>
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
 </head>
@@ -57,12 +58,22 @@
         </div>
     </div>
 
-    <canvas id="canvas" width="720" height="480">
+    <!--Startscreen-->
+    <div class="startscreen" id="startscreen">
+        <img src="img/9.Intro _ Outro Image/Start Screen/Opción 1.png">
+        <div class="start-button">
+            <button onclick="startGame()">Start Game</button>
+        </div>
+    </div>
+
+    <!--Canvas-->
+    <canvas class="d-none" id="canvas" width="720" height="480">
 
     </canvas>
 
     <div class="manual">
         <div>RUN: arrow right/left | JUMP: space bar | THROW: D</div>
+        <div class="fullscreen"><img onclick="goFullScreen()" src="icon/expand.png"></div>
     </div>
 </body>
 

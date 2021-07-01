@@ -3,10 +3,19 @@ let world;
 let keyboard = new KeyboardObject();
 
 function init() {
+   showStartScreen();
+}
+
+function showStartScreen() {
+    document.getElementById('startscreen').classList.remove('d-none');
+    document.getElementById('canvas').classList.add('d-none');
+}
+
+function startGame() {
+    document.getElementById('startscreen').classList.add('d-none');
+    document.getElementById('canvas').classList.remove('d-none');
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-
-    console.log('My character is ', Character);
 }
 
 window.addEventListener('keydown', (e) =>{
@@ -61,4 +70,9 @@ function openStory() {
 
 function closeStory() {
     document.getElementById('story').classList.add('d-none');
+}
+
+//Fullscreen
+function goFullScreen() {
+    canvas.requestFullscreen();
 }

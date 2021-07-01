@@ -20,6 +20,46 @@ canvas {
     background-color: black;
 }
 
+.startscreen {
+    position: relative;
+    height: 480px;
+    width: 720px;
+}
+
+.startscreen img {
+    /*object-fit: cover;*/
+    height: 480px;
+    width: 720px;
+}
+
+.start-button button {
+    position: absolute;
+    top: 48px;
+    left: 280px;
+    z-index: 1;
+    cursor: pointer;
+    height: 56px;
+    outline: none;
+    color: #a0220a;
+    font-family: 'Boogaloo', cursive;
+    font-size: 32px;
+    box-shadow:inset 0px 1px 0px 0px #ffd300;
+	background:linear-gradient(to bottom, #ffdb00 5%, #ff9d00 100%);
+	background-color:#ffcc01;
+	border-radius:6px;
+	border:1px solid #ff9f00;
+	display:inline-block;
+	cursor:pointer;
+    padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #c76758;
+}
+
+.start-button button:hover {
+    background:linear-gradient(to bottom, #ff9d00 5%, #ffdb00 100%);
+    background-color:#ffd300;
+}
+
 .sound img {
     object-fit: cover;
     height: 32px;
@@ -42,6 +82,7 @@ canvas {
 }
 
 .manual {
+    position: relative;
     /*background-color: #4191295c;*/
     background-color: #679b16;
     /*color: black;*/
@@ -49,6 +90,19 @@ canvas {
     width: 720px;
     height: 40px;
     text-align: center;
+}
+
+.fullscreen img {
+    object-fit: cover;
+    height: 24px;
+    width: 24px; 
+    cursor: pointer; 
+}
+
+.fullscreen {
+    position: absolute;
+    top: 8px;
+    right: 12px;
 }
 
 .description {
@@ -97,7 +151,7 @@ canvas {
 
 .story button {
     position: absolute;
-    bottom: 64px;
+    bottom: 80px;
     height: 48px;
     outline: none;
     color: #a0220a;
@@ -123,3 +177,4 @@ canvas {
 .d-none {
     display: none;
 }
+

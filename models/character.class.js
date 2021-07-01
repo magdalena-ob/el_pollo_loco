@@ -112,6 +112,10 @@ class Character extends MovableObject {
                 setTimeout(() => {
                     this.applyGravity();
                 }, 2000);
+                setTimeout(() => {
+                    this.world.gameOver.gameFinished = true;
+                    this.world.gameOver.youLost = true;
+                }, 2000);
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {
@@ -131,4 +135,5 @@ class Character extends MovableObject {
             }
         }, 100);
     }
+
 }
