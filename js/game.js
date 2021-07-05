@@ -17,6 +17,7 @@ function showStartScreen() {
 function startGame() {
     document.getElementById('startscreen').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
+    document.getElementById('fullscreen').classList.remove('d-none');
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard, gameOver);
 }
@@ -80,6 +81,28 @@ function goFullScreen() {
     canvas.requestFullscreen();
 }
 
+//reload whole game
 function playAgain() {
     location.reload();
+}
+
+//Ton on/off
+function muteMusic() {
+    if(world.AUDIO_BACKGROUND.muted == false) {
+        world.AUDIO_BACKGROUND.muted = true;
+        world.AUDIO_GAMEOVER.muted = true;
+    } else {
+        world.AUDIO_BACKGROUND.muted = false;
+        world.AUDIO_GAMEOVER.muted = false;
+    }   
+}
+
+function muteSound() {
+    if(world.AUDIO_CHICKEN.muted == false) {
+        world.AUDIO_CHICKEN.muted = true;
+       
+    } else {
+        world.AUDIO_CHICKEN.muted = false;
+      
+    }
 }

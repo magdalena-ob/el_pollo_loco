@@ -53,10 +53,10 @@
         <button onclick="closeStory()">CLOSE BOOK</button>
     </div>
     <div class="sound">
-        <div class="mute">
+        <div class="mute" onclick="muteMusic()">
             <div>music</div> <img src="icon/speaker.png">
         </div>
-        <div class="mute">
+        <div class="mute" onclick="muteSound()">
             <div>sound</div> <img src="icon/speaker.png">
         </div>
     </div>
@@ -76,7 +76,7 @@
 
     <div class="manual">
         <div>RUN: arrow right/left | JUMP: space bar | THROW: D</div>
-        <div class="fullscreen"><img onclick="goFullScreen()" src="icon/expand.png"></div>
+        <div class="fullscreen d-none" id="fullscreen"><img onclick="goFullScreen()" src="icon/expand.png"></div>
     </div>
 
     <!--Play again button-->

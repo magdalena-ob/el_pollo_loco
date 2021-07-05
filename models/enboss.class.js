@@ -96,6 +96,7 @@ class Endboss extends MovableObject {
                 this.x -= 15;
             } else if (this.killedCharacter) {
                 this.playAnimation(this.IMAGES_ALERT);
+                this.AUDIO_SCREAM.pause();
             } else {
                 if (this.characterNearEndboss && this.x > 6000) {
                     this.playAnimation(this.IMAGES_WALKING);
