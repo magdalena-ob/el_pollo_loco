@@ -207,3 +207,8 @@ canvas {
 	text-decoration:none;
 	text-shadow:0px 1px 0px #c76758;
 }
+
+.play-btn button:hover {
+    background:linear-gradient(to bottom, #ff9d00 5%, #ffdb00 100%);
+    background-color:#ffd300;
+}
