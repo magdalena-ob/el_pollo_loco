@@ -1,6 +1,7 @@
 let canvas;
 let world;
 let keyboard = new KeyboardObject();
+let gameOver = new GameOver();
 
 function init() {
    showStartScreen();
@@ -9,13 +10,15 @@ function init() {
 function showStartScreen() {
     document.getElementById('startscreen').classList.remove('d-none');
     document.getElementById('canvas').classList.add('d-none');
+    document.getElementById('playAgain').classList.add('d-none'); 
+    document.getElementById('tryAgain').classList.add('d-none'); 
 }
 
 function startGame() {
     document.getElementById('startscreen').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
     canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard);
+    world = new World(canvas, keyboard, gameOver);
 }
 
 window.addEventListener('keydown', (e) =>{
@@ -75,4 +78,8 @@ function closeStory() {
 //Fullscreen
 function goFullScreen() {
     canvas.requestFullscreen();
+}
+
+function playAgain() {
+    location.reload();
 }

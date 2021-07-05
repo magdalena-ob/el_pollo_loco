@@ -3,12 +3,13 @@ class Endboss extends MovableObject {
     width = 250;
     y = 145;
     currentImage = 0;
-    endbossAlive = true;
+    dead = false;
     characterNearEndboss = false;
     energyEndboss = 100;
     lastCollisionEndboss = 0;
     bottleAvailable = false;
     lastTimePressedD = 0;
+    killedCharacter = false;
 
     IMAGES_ALERT = [
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/1.Alerta/G5.png',
@@ -82,19 +83,24 @@ class Endboss extends MovableObject {
                 }
             } else if (this.endbossIsDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-                this.AUDIO_SCREAM.pause();
+                this.AUDIO_SCREAM.pause(); 
                 setTimeout(() => {
                     this.applyGravity();
                 }, 2000);
+                setTimeout(() => {
+                    this.dead = true;
+                }, 2000);    
             } else if (!this.bottleAvailable && this.x <= 6000) {
                 this.playAnimation(this.IMAGES_ATTACK);
                 this.AUDIO_SCREAM.play();
                 this.x -= 15;
+            } else if (this.killedCharacter) {
+                this.playAnimation(this.IMAGES_ALERT);
             } else {
                 if (this.characterNearEndboss && this.x > 6000) {
                     this.playAnimation(this.IMAGES_WALKING);
                     this.AUDIO_SCREAM.play();
-                } else if(!this.pressedD() && this.x <= 6000){
+                } else if (!this.pressedD() && this.x <= 6000) {
                     this.playAnimation(this.IMAGES_ATTACK);
                     this.AUDIO_SCREAM.play();
                     this.x -= 20;
@@ -125,7 +131,7 @@ class Endboss extends MovableObject {
         return this.energyEndboss == 0;
     }
 
-    pressedD(){
+    pressedD() {
         let timepassed = new Date().getTime() - this.lastTimePressedD;
         timepassed = timepassed / 1000;
         return timepassed < 6;

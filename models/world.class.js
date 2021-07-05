@@ -11,24 +11,28 @@ class World {
     throwableObjects = [];
     endBoss = this.level.enemies[this.level.enemies.length - 1];
     endbossBar = new EndbossStatusBar(this.endBoss.x + 100, this.endBoss.y - 50);
-    gameOver = new GameOver();
-    
+    //gameOver = new GameOver();
+    gameOver;
+
     AUDIO_CHICKEN = new Audio('audio/chicken.mp3');
-    //AUDIO_BACKGROUND = new Audio('audio/background.mp3');
-    
+    AUDIO_GAMEOVER = new Audio('audio/game_over.mp3');
+    AUDIO_BACKGROUND = new Audio('audio/background.mp3');
 
 
-    constructor(canvas, keyboard) {
+
+    constructor(canvas, keyboard, gameOver) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.gameOver = gameOver;
         this.draw();
         this.setWorld();
         this.checkCollision();
         this.checkCollisonBottle();
         this.run();
-        // this.AUDIO_BACKGROUND.play();
-        // this.AUDIO_BACKGROUND.volume = 0.04;  
+        this.AUDIO_GAMEOVER.pause();
+        this.AUDIO_BACKGROUND.play();
+        this.AUDIO_BACKGROUND.volume = 0.04;  
     }
 
     setWorld() {
@@ -53,7 +57,7 @@ class World {
         this.addToMap(this.bottleBar);
         this.addToMap(this.coinBar);
 
-        if(this.gameOver.gameFinished && this.gameOver.youLost) {
+        if (this.gameOver.gameFinished) {
             this.addToMap(this.gameOver);
         }
 
@@ -111,6 +115,8 @@ class World {
             this.checkCollisionEndboss();
             this.timePassedSinceThrowEvent();
             this.checkChickenPosition();
+            this.checkIfCharacterIsDead();
+            this.checkIfGameOver();
         }, 200);
     }
 
@@ -222,23 +228,42 @@ class World {
     }
 
     timePassedSinceThrowEvent() {
-        if (this.keyboard.KEY_D){
+        if (this.keyboard.KEY_D) {
             this.endBoss.lastTimePressedD = new Date().getTime();
         }
     }
 
     checkChickenPosition() {
         let chicken = this.level.enemies;
-        
+
         for (let i = 0; i < chicken.length - 1; i++) {
-             if(this.chickenisNear(chicken, i) && !this.gameOver.gameFinished){
+            if (this.chickenisNear(chicken, i) && !this.gameOver.gameFinished) {
                 this.AUDIO_CHICKEN.play();
+                this.AUDIO_CHICKEN.volume = 0.3;
             }
         }
     }
 
-    chickenisNear(chicken, i){
+    chickenisNear(chicken, i) {
         return this.character.x > chicken[i].x - 200 &&
             this.character.x + this.character.width < chicken[i].x + chicken[i].width;
+    }
+
+    checkIfCharacterIsDead() {
+        if (this.character.dead) {
+            this.endBoss.killedCharacter = true;
+        }
+    }
+
+    checkIfGameOver() {
+        if (this.character.dead || this.endBoss.dead) {
+            this.gameOver.gameFinished = true;
+            this.gameOver.lostGame = this.character.dead && !this.endBoss.dead ? true : false;
+            this.gameOver.showEndscreen();
+            this.AUDIO_BACKGROUND.pause();
+            this.AUDIO_GAMEOVER.play();
+            this.AUDIO_GAMEOVER.volume = 0.2;
+            this.AUDIO_GAMEOVER.loop = false;
+        }
     }
 }

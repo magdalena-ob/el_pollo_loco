@@ -62,6 +62,7 @@ class Character extends MovableObject {
     AUDIO_JUMPING = new Audio('audio/jump.mp3');
     world;
     speed = 6;
+    dead = false;
 
     constructor() {
         super().loadImage('img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/IDLE/I-1.png');
@@ -112,10 +113,7 @@ class Character extends MovableObject {
                 setTimeout(() => {
                     this.applyGravity();
                 }, 2000);
-                setTimeout(() => {
-                    this.world.gameOver.gameFinished = true;
-                    this.world.gameOver.youLost = true;
-                }, 2000);
+                this.dead = true;
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {
