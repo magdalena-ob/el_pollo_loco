@@ -86,17 +86,17 @@ class Endboss extends MovableObject {
                 }
             } else if (this.endbossIsDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-                this.AUDIO_SCREAM.pause(); 
+                this.AUDIO_SCREAM.pause();
                 setTimeout(() => {
                     this.applyGravity();
                 }, 2000);
                 setTimeout(() => {
                     this.dead = true;
-                }, 2000);    
+                }, 2000);
             } else if (!this.bottleAvailable && this.x <= 6000 && !this.killedCharacter) {
                 this.playAnimation(this.IMAGES_ATTACK);
                 this.AUDIO_SCREAM.play();
-                this.x -= 15;
+                this.x -= 25;
                 this.endbossBar.x = this.x + 100;
             } else if (this.killedCharacter) {
                 this.playAnimation(this.IMAGES_ALERT);
@@ -105,7 +105,7 @@ class Endboss extends MovableObject {
                 if (this.characterNearEndboss && this.x > 6000) {
                     this.playAnimation(this.IMAGES_WALKING);
                     this.AUDIO_SCREAM.play();
-                } else if (!this.pressedD() && this.x <= 6000) {
+                } else if (!this.pressedD() && this.x <= 6000 && this.bottleAvailable) {
                     this.playAnimation(this.IMAGES_ATTACK);
                     this.AUDIO_SCREAM.play();
                     this.x -= 20;

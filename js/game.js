@@ -91,14 +91,19 @@ function muteMusic() {
     if(world.AUDIO_BACKGROUND.muted == false) {
         world.AUDIO_BACKGROUND.muted = true;
         world.AUDIO_GAMEOVER.muted = true;
+        document.getElementById('music').src = "icon/mute.png";
+       
     } else {
         world.AUDIO_BACKGROUND.muted = false;
         world.AUDIO_GAMEOVER.muted = false;
+        document.getElementById('music').src = "icon/speaker.png";
+       
     }   
 }
 
 function muteSound() {
     if(world.AUDIO_CHICKEN.muted == false) {
+        document.getElementById('sound').src = "icon/mute.png";
         world.AUDIO_CHICKEN.muted = true;
         world.AUDIO_THROWING.muted = true;
         world.character.AUDIO_WALKING.muted = true;
@@ -109,6 +114,7 @@ function muteSound() {
         world.character.AUDIO_BOTTLE.muted = true;
         world.character.AUDIO_COIN.muted = true;   
     } else {
+        document.getElementById('sound').src = "icon/speaker.png";
         world.AUDIO_CHICKEN.muted = false;
         world.AUDIO_THROWING.muted = false;
         world.character.AUDIO_WALKING.muted = false;

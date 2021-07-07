@@ -130,6 +130,13 @@ canvas {
     object-fit: cover;
     height: 24px;
     width: 24px;  
+    transition: all 225ms ease-in-out;
+}
+
+.book img:hover {
+    height: 32px;
+    width: 32px;
+    transition: all 225ms ease-in-out;
 }
 
 .story {
