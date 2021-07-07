@@ -9,14 +9,14 @@ class World {
     bottleBar = new BottleBar();
     coinBar = new CoinBar();
     throwableObjects = [];
-    endBoss = this.level.enemies[this.level.enemies.length - 1];
-    endbossBar = new EndbossStatusBar(this.endBoss.x + 100, this.endBoss.y - 50);
+    endBoss = this.level.enemies[this.level.enemies.length - 1];   
     //gameOver = new GameOver();
     gameOver;
 
     AUDIO_CHICKEN = new Audio('audio/chicken.mp3');
     AUDIO_GAMEOVER = new Audio('audio/game_over.mp3');
     AUDIO_BACKGROUND = new Audio('audio/background.mp3');
+    AUDIO_THROWING = new Audio('audio/throw.mp3');
 
     constructor(canvas, keyboard, gameOver) {
         this.ctx = canvas.getContext('2d');
@@ -28,12 +28,27 @@ class World {
         this.checkCollision();
         this.checkCollisonBottle();
         this.run();
+        
+        //AUDIO
+        //audio world
         this.AUDIO_GAMEOVER.pause();
         this.AUDIO_GAMEOVER.muted = false;
         this.AUDIO_BACKGROUND.play();
         this.AUDIO_BACKGROUND.volume = 0.04; 
         this.AUDIO_BACKGROUND.muted = false;
         this.AUDIO_CHICKEN.muted = false;
+        //audio Character
+        this.character.AUDIO_WALKING.muted = false;
+        this.character.AUDIO_HURTING.muted = false;
+        this.character.AUDIO_JUMPING.muted = false;
+        //audio Endboss
+        this.endBoss.AUDIO_SCREAM.muted = false;
+        this.endBoss.AUDIO_HURT.muted = false;
+        //audio MovabelObject
+        this.character.AUDIO_BOTTLE.muted = false;
+        this.character.AUDIO_COIN.muted = false;
+
+        this.AUDIO_THROWING.muted = false;
     }
 
     setWorld() {
@@ -45,18 +60,21 @@ class World {
 
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
-        this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.enemies);
+        if (!this.endBoss.dead){
+            this.addToMap(this.endBoss.endbossBar);
+        }
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.coins);
-        this.addToMap(this.endbossBar);
-
+      
         this.ctx.translate(-this.camera_x, 0);
         //-----space for fixed objects-----
         this.addToMap(this.statusBar);
         this.addToMap(this.bottleBar);
         this.addToMap(this.coinBar);
+       
         if (this.gameOver.gameFinished) {
             this.addToMap(this.gameOver);
         }
@@ -163,6 +181,7 @@ class World {
         if (this.keyboard.KEY_D && this.bottleBar.percentage > 0) {
             let bottle = new ThrowableObject(this.character.x + 20, this.character.y + 80);
             this.throwableObjects.push(bottle);
+            this.AUDIO_THROWING.play();
             this.character.reduceBottle();
             this.bottleBar.setPercentage(this.character.bottleAmount);
         }
@@ -193,12 +212,11 @@ class World {
     checkCollisionBottleEndboss() {
         this.throwableObjects.forEach((bottle) => {
             if (this.isCollidingBottle(bottle)) {
-                console.log('hit endboss');
                 this.endBoss.hitEndboss();
+                this.endBoss.endbossBar.setPercentage(this.endBoss.energyEndboss);
             }
         })
     }
-
 
     isCollidingBottle(bottle) {
         return bottle.x + bottle.width > this.endBoss.x &&

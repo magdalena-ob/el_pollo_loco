@@ -9,8 +9,8 @@ class MovableObject extends DrawableObject {
     coinAmount = 0;
     AUDIO_BOTTLE = new Audio('audio/bottle.mp3');
     AUDIO_COIN = new Audio('audio/coin.mp3');
-
-
+    
+    
     isColliding(mo) {
         return this.x + this.width > mo.x &&
             this.y + this.height > mo.y &&

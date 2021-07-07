@@ -6,11 +6,11 @@ let x = 0;
 let y = 0;
 
 //Enemies
-for(let i = 0; i < 15; i++) {
+for(let i = 0; i < 12; i++) {
     enemies.push(new Chicken());
 }
 
-for(let i = 0; i < 10; i++) {
+for(let i = 0; i < 7; i++) {
     enemies.push(new Chick());
 }
 

@@ -61,12 +61,14 @@ class Endboss extends MovableObject {
         this.x = 6500;
         this.speed = 2;
         this.animate();
+        this.endbossBar = new EndbossStatusBar(this.x + 100, this.y - 10);
     }
 
     animate() {
         setInterval(() => {
             if (this.characterNearEndboss && this.x > 6000) {
                 this.moveLeft();
+                this.endbossBar.x = this.x + 100;
             }
         }, 1000 / 60);
 
@@ -79,6 +81,7 @@ class Endboss extends MovableObject {
                         this.playAnimation(this.IMAGES_ATTACK);
                         this.AUDIO_SCREAM.play();
                         this.x -= 20;
+                        this.endbossBar.x = this.x + 100;
                     }, 2000);
                 }
             } else if (this.endbossIsDead()) {
@@ -90,10 +93,11 @@ class Endboss extends MovableObject {
                 setTimeout(() => {
                     this.dead = true;
                 }, 2000);    
-            } else if (!this.bottleAvailable && this.x <= 6000) {
+            } else if (!this.bottleAvailable && this.x <= 6000 && !this.killedCharacter) {
                 this.playAnimation(this.IMAGES_ATTACK);
                 this.AUDIO_SCREAM.play();
                 this.x -= 15;
+                this.endbossBar.x = this.x + 100;
             } else if (this.killedCharacter) {
                 this.playAnimation(this.IMAGES_ALERT);
                 this.AUDIO_SCREAM.pause();
@@ -105,6 +109,7 @@ class Endboss extends MovableObject {
                     this.playAnimation(this.IMAGES_ATTACK);
                     this.AUDIO_SCREAM.play();
                     this.x -= 20;
+                    this.endbossBar.x = this.x + 100;
                 } else if (this.x <= 6000) {
                     this.playAnimation(this.IMAGES_ALERT);
                 }

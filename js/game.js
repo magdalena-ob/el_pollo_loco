@@ -100,9 +100,23 @@ function muteMusic() {
 function muteSound() {
     if(world.AUDIO_CHICKEN.muted == false) {
         world.AUDIO_CHICKEN.muted = true;
-       
+        world.AUDIO_THROWING.muted = true;
+        world.character.AUDIO_WALKING.muted = true;
+        world.character.AUDIO_HURTING.muted = true;
+        world.character.AUDIO_JUMPING.muted = true;
+        world.endBoss.AUDIO_SCREAM.muted = true;
+        world.endBoss.AUDIO_HURT.muted = true;
+        world.character.AUDIO_BOTTLE.muted = true;
+        world.character.AUDIO_COIN.muted = true;   
     } else {
         world.AUDIO_CHICKEN.muted = false;
-      
+        world.AUDIO_THROWING.muted = false;
+        world.character.AUDIO_WALKING.muted = false;
+        world.character.AUDIO_HURTING.muted = false;
+        world.character.AUDIO_JUMPING.muted = false;
+        world.endBoss.AUDIO_SCREAM.muted = false;
+        world.endBoss.AUDIO_HURT.muted = false;
+        world.character.AUDIO_BOTTLE.muted = false;
+        world.character.AUDIO_COIN.muted = false; 
     }
 }
