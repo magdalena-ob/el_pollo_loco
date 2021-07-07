@@ -132,6 +132,7 @@ class World {
             this.checkCollisionEndboss();
             this.timePassedSinceThrowEvent();
             this.checkChickenPosition();
+            this.checkCharacterPassedEndboss();
             this.checkIfCharacterIsDead();
             this.checkIfGameOver();
         }, 200);
@@ -237,7 +238,6 @@ class World {
     //check if endboss hits character
     checkCollisionEndboss() {
         if (this.isCollidingEndboss()) {
-            console.log('endboss hit pepe');
             this.character.hitByEndboss();
             this.statusBar.setPercentage(this.character.energy);
         }
@@ -248,6 +248,17 @@ class World {
             this.character.y + this.character.height < this.endBoss.y + this.endBoss.height &&
             this.character.y + this.character.height > this.endBoss.y &&
             this.character.x + this.character.width < this.endBoss.x + this.endBoss.width;
+    }
+
+    //check if Character infront or behind Endboss
+    checkCharacterPassedEndboss() {
+        if(this.escapedEndboss()){
+            this.endBoss.characterEscaped = true;
+        }
+    }
+
+    escapedEndboss(){
+        return this.character.x > this.endBoss.x
     }
 
     //check if Key D has been pressed
@@ -262,8 +273,7 @@ class World {
         for (let i = 0; i < chicken.length - 1; i++) {
             if (this.chickenisNear(chicken, i) && !this.gameOver.gameFinished) {
                 this.AUDIO_CHICKEN.play();
-                this.AUDIO_CHICKEN.volume = 0.3;
-                
+                this.AUDIO_CHICKEN.volume = 0.3;  
             }
         }
     }
