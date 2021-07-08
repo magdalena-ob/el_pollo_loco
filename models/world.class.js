@@ -147,7 +147,7 @@ class World {
                     this.statusBar.setPercentage(this.character.energy);
                 } else if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
                     this.chickenDied(enemy);
-                    this.removeChicken(index);
+                    this.removeChicken(enemy);
                 }
             }
         });
@@ -157,9 +157,10 @@ class World {
          enemy.chickenAlive = false;
     }
 
-    removeChicken(index) {
+    removeChicken(enemy) {
         setTimeout(() => {
-            this.level.enemies.splice(index, 1);
+            let position = this.level.enemies.indexOf(enemy);
+            this.level.enemies.splice(position, 1);
         }, 2000);
     }
 
