@@ -146,7 +146,7 @@ class World {
                     this.character.hit();
                     this.statusBar.setPercentage(this.character.energy);
                 } else if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
-                    this.chickenDied(enemy)
+                    this.chickenDied(enemy);
                     this.removeChicken(index);
                 }
             }
@@ -154,7 +154,7 @@ class World {
     }
 
     chickenDied(enemy) {
-        return enemy.chickenAlive = false;
+         enemy.chickenAlive = false;
     }
 
     removeChicken(index) {
@@ -203,6 +203,7 @@ class World {
         this.level.coins.splice(index, 1);
     }
 
+    //check if character is at the end of the game, where he meets endboss
     calculateCharacterPosition() {
         if (this.character.x > this.level.level_end_x - 100) {
             this.endBoss.characterNearEndboss = true;
@@ -268,6 +269,7 @@ class World {
         }
     }
 
+    //Check if Chicken is near character for playing the chicken sound
     checkChickenPosition() {
         let chicken = this.level.enemies;
         for (let i = 0; i < chicken.length - 1; i++) {

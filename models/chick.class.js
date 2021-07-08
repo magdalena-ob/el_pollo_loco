@@ -9,12 +9,13 @@ class Chick extends MovableObject {
         'img/3.Secuencias_Enemy_básico/Versión_pollito/3.Paso_izquierdo.png'
     ];
 
-    IMAGE_DEAD = 'img/3.Secuencias_Enemy_básico/Versión_pollito/4.Muerte.png';
+    IMAGES_DEAD = ['img/3.Secuencias_Enemy_básico/Versión_pollito/4.Muerte.png'];
 
     constructor() {
         super().loadImage('img/3.Secuencias_Enemy_básico/Versión_pollito/1.Paso_derecho.png');
         this.x = 350 + Math.random() * 6100;
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_DEAD);
         this.animate();
         this.speed = 0.15 + Math.random() * 0.25;
     }
@@ -29,8 +30,8 @@ class Chick extends MovableObject {
         setInterval(() => {
             if (this.chickenAlive) {
                 this.playAnimation(this.IMAGES_WALKING);
-            } else if (this.chickenAlive == false) {
-                this.loadImage(this.IMAGE_DEAD);
+            } else {
+                this.playAnimation(this.IMAGES_DEAD);
             }
         }, 100);
     }
