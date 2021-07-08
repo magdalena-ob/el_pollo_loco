@@ -1,7 +1,10 @@
 class EndbossStatusBar extends DrawableObject {
     IMAGES_LIFE = [
-        'img/7.Marcadores/Marcadorvida_enemy/Vede.png',
-        'img/7.Marcadores/Marcadorvida_enemy/Azul.png',
+        'img/7.Marcadores/Marcadorvida_enemy/e_0_.png',
+        'img/7.Marcadores/Marcadorvida_enemy/e_20_.png',
+        'img/7.Marcadores/Marcadorvida_enemy/e_40_.png',
+        'img/7.Marcadores/Marcadorvida_enemy/e_60_.png',
+        'img/7.Marcadores/Marcadorvida_enemy/e_80_.png',
         'img/7.Marcadores/Marcadorvida_enemy/Naranja.png'
     ];
 
@@ -25,11 +28,17 @@ class EndbossStatusBar extends DrawableObject {
 
     lifeBarIndex() {
         if (this.percentage == 100) {
-            return 0;
-        } else if (this.percentage > 50) {
+            return 5;
+        } else if (this.percentage > 80) {
+            return 4;
+        } else if (this.percentage > 60) {
+            return 3;
+        } else if (this.percentage > 40) {
+            return 2;
+        } else if (this.percentage > 20) {
             return 1;
         } else {
-            return 2;
+            return 0;
         }
     }
 }
