@@ -18,7 +18,10 @@ function startGame() {
     document.getElementById('startscreen').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
     document.getElementById('fullscreen').classList.remove('d-none');
+    document.getElementById('mute1').classList.remove('d-none');
+    document.getElementById('mute2').classList.remove('d-none');
     canvas = document.getElementById('canvas');
+    level1 = initLevel1();
     world = new World(canvas, keyboard, gameOver);
 }
 
