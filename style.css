@@ -224,6 +224,34 @@ canvas {
     background-color:#ffd300;
 }
 
+#touchLeft {
+    position: absolute;
+    top: 25vh;
+    left: 4px;
+}
+
+#touchRight {
+    position: absolute;
+    top: 25vh;
+    right: 4px;
+}
+
+#touchUp {
+    position: absolute;
+    bottom: 4vh;
+    left: 25vw;
+}
+
+#touchThrow {
+    position: absolute;
+    bottom: 4vh;
+    left: 50vw;
+}
+
+.touchControl-responsive {
+    display: none;
+}
+
 @media (max-width: 800px) {
     body {
         /*transform: rotate(90deg);*/
@@ -316,6 +344,10 @@ canvas {
         position: absolute;
         top: 12px;
         right: 8px;
+    }
+
+    .touchControl-responsive {
+        display: unset;
     }
 
 }

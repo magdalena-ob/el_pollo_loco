@@ -13,6 +13,7 @@ function showStartScreen() {
     document.getElementById('canvas').classList.add('d-none');
     document.getElementById('playAgain').classList.add('d-none'); 
     document.getElementById('tryAgain').classList.add('d-none'); 
+    document.getElementById('touchControl').classList.add('d-none');
     
 }
 
@@ -23,9 +24,12 @@ function startGame() {
     document.getElementById('fullscreen').classList.remove('d-none');
     document.getElementById('mute1').classList.remove('d-none');
     document.getElementById('mute2').classList.remove('d-none');
+    document.getElementById('touchControl').classList.remove('d-none');
     canvas = document.getElementById('canvas');
     level1 = initLevel1();
     world = new World(canvas, keyboard, gameOver);
+
+    touchControl();
 }
 
 window.addEventListener('keydown', (e) =>{
@@ -131,4 +135,51 @@ function muteSound() {
         world.character.AUDIO_BOTTLE.muted = false;
         world.character.AUDIO_COIN.muted = false; 
     }
+}
+
+//for mobile version
+function touchControl() {
+    //Move Right
+    document.getElementById('touchRight').addEventListener('touchstart', function(e){
+        e.preventDefault();
+        keyboard.KEY_RIGHT = true;
+    })
+
+    document.getElementById('touchRight').addEventListener('touchend', function(e){
+        e.preventDefault();
+        keyboard.KEY_RIGHT = false;
+    })
+
+    //Move Left
+    document.getElementById('touchLeft').addEventListener('touchstart', function(e){
+        e.preventDefault();
+        keyboard.KEY_LEFT = true;
+    })
+
+    document.getElementById('touchLeft').addEventListener('touchend', function(e){
+        e.preventDefault();
+        keyboard.KEY_LEFT = false;
+    })
+
+    //Jump
+    document.getElementById('touchUp').addEventListener('touchstart', function(e){
+        e.preventDefault();
+        keyboard.KEY_SPACE = true;
+    })
+
+    document.getElementById('touchUp').addEventListener('touchend', function(e){
+        e.preventDefault();
+        keyboard.KEY_SPACE = false;
+    })
+
+    //Throw Bottle
+    document.getElementById('touchThrow').addEventListener('touchstart', function(e){
+        e.preventDefault();
+        keyboard.KEY_D = true;
+    })
+
+    document.getElementById('touchThrow').addEventListener('touchend', function(e){
+        e.preventDefault();
+        keyboard.KEY_D = false;
+    })
 }
