@@ -2,6 +2,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     font-family: 'Boogaloo', cursive;
     color: #a0220a;
     background-color: #f0984b;
@@ -9,6 +10,8 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     margin: 0px;
+    height: 100vh;
+    width: 100vw;
 }
 
 h1 {
@@ -69,8 +72,8 @@ canvas {
 
 .sound {
     position: absolute;
-    top: 24px;
-    right: 24px;
+    top: 48px;
+    right: 0;
     display: flex;
     justify-content: space-between;
 }
@@ -116,6 +119,7 @@ canvas {
     justify-content: center;
     padding-top: 8px;
     padding-bottom: 8px;   
+    position: relative;
 }
 
 .book {
@@ -218,4 +222,100 @@ canvas {
 .play-btn button:hover {
     background:linear-gradient(to bottom, #ff9d00 5%, #ffdb00 100%);
     background-color:#ffd300;
+}
+
+@media (max-width: 800px) {
+    body {
+        /*transform: rotate(90deg);*/
+        position: relative;
+        overflow: hidden;
+    }
+
+    /*html, body
+    {
+        height: 100%;
+    }*/
+
+    .wrapper {
+        transform: rotate(90deg);
+        transform-origin:bottom left;
+        
+        position:absolute;
+        top: -100vw;
+        left: 0;
+        
+        height:100vw;
+        width:100vh;
+        
+       /* background-color:#000;
+        color:#fff;*/
+    
+        overflow:auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .manual {
+        display: none;
+    }
+
+    .startscreen {
+        width: unset;
+        height: unset;
+    }
+
+    .startscreen img {
+        height: 100%;
+        width: 100vh;
+    }
+
+    .description {
+        position: absolute;
+        top: 0;
+        z-index: 3;
+        background-color: unset;
+        width: unset;
+    }
+
+    .start-button {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .start-button  button {
+        left: unset;
+        right: unset;
+        top: unset;
+    }
+
+    .canvas {
+        height: 100% !important;
+        width: 100vh !important;
+    }
+
+    .play-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+    }
+
+    .play-btn button {
+        margin-bottom: 32px;
+    }
+
+    .sound {
+        position: absolute;
+        top: 12px;
+        right: 8px;
+    }
+
 }

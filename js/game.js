@@ -9,13 +9,16 @@ function init() {
 
 function showStartScreen() {
     document.getElementById('startscreen').classList.remove('d-none');
+    document.getElementById('description').classList.remove('d-none');
     document.getElementById('canvas').classList.add('d-none');
     document.getElementById('playAgain').classList.add('d-none'); 
     document.getElementById('tryAgain').classList.add('d-none'); 
+    
 }
 
 function startGame() {
     document.getElementById('startscreen').classList.add('d-none');
+    document.getElementById('description').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
     document.getElementById('fullscreen').classList.remove('d-none');
     document.getElementById('mute1').classList.remove('d-none');

@@ -36,56 +36,61 @@
 </head>
 
 <body onload="init()">
-    <div class="description">
-        <div>Help Pepe to collect as many bottles and coins as possible but watch out for the chickens!</div>
-        <div class="book" onclick="openStory()">
-            <img src="icon/story.png">
+    <div class="wrapper">
+        <div class="description" id="description">
+            <div>Help Pepe to collect as many bottles and coins as possible but watch out for the chickens!</div>
+            <div class="book" onclick="openStory()">
+                <img src="icon/story.png">
+            </div>
         </div>
-    </div>
-    <div class="d-none story" id="story">
-        <p>The fearless Pepe is on his way through the desert, but he needs your help.<br> It is said, that there live
-            crazy chickens and a very angry, big chicken also called as "el pollo loco".<br>
-            Help Pepe to collect as many bottles and coins as possible and try to avoid the chickens. You can destroy
-            them by jumping on them.<br> When you come across "el pollo loco" defeat it by shooting it with tabasco
-            sauce.<br>
-            Good luck!
-        </p>
-        <button onclick="closeStory()">CLOSE BOOK</button>
-    </div>
-    <div class="sound">
-        <div class="mute d-none" id="mute1" onclick="muteMusic()">
-            <div>music</div> <img id="music" src="icon/speaker.png">
+        <div class="d-none story" id="story">
+            <p>The fearless Pepe is on his way through the desert, but he needs your help.<br> It is said, that there
+                live
+                crazy chickens and a very angry, big chicken also called as "el pollo loco".<br>
+                Help Pepe to collect as many bottles and coins as possible and try to avoid the chickens. You can
+                destroy
+                them by jumping on them.<br> When you come across "el pollo loco" defeat it by shooting it with tabasco
+                sauce.<br>
+                Good luck!
+            </p>
+            <button onclick="closeStory()">CLOSE BOOK</button>
         </div>
-        <div class="mute d-none" id="mute2" onclick="muteSound()">
-            <div>sound</div> <img id="sound" src="icon/speaker.png">
+
+        <div class="sound">
+            <div class="mute d-none" id="mute1" onclick="muteMusic()">
+                <div>music</div> <img id="music" src="icon/speaker.png">
+            </div>
+            <div class="mute d-none" id="mute2" onclick="muteSound()">
+                <div>sound</div> <img id="sound" src="icon/speaker.png">
+            </div>
         </div>
-    </div>
 
-    <!--Startscreen-->
-    <div class="startscreen" id="startscreen">
-        <img src="img/9.Intro _ Outro Image/Start Screen/Opción 1.png">
-        <div class="start-button">
-            <button onclick="startGame()">Start Game</button>
+        <!--Startscreen-->
+        <div class="startscreen" id="startscreen">
+            <img src="img/9.Intro _ Outro Image/Start Screen/Opción 1.png">
+            <div class="start-button">
+                <button onclick="startGame()">Start Game</button>
+            </div>
         </div>
-    </div>
 
-    <!--Canvas-->
-    <canvas class="d-none" id="canvas" width="720" height="480">
+        <!--Canvas-->
+        <canvas class="d-none" id="canvas" width="720" height="480">
 
-    </canvas>
+        </canvas>
 
-    <div class="manual">
-        <div>RUN: arrow right/left | JUMP: space bar | THROW: D</div>
-        <div class="fullscreen d-none" id="fullscreen"><img onclick="goFullScreen()" src="icon/expand.png"></div>
-    </div>
+        <div class="manual">
+            <div>RUN: arrow right/left | JUMP: space bar | THROW: D</div>
+            <div class="fullscreen d-none" id="fullscreen"><img onclick="goFullScreen()" src="icon/expand.png"></div>
+        </div>
 
-    <!--Play again button-->
-    <div class="d-none play-btn" id="playAgain">
-        <button onclick="playAgain()">Play Again</button>
-    </div>
-    <!--Try again button-->
-    <div class="d-none play-btn" id="tryAgain">
-        <button onclick="playAgain()">Try Again</button>
+        <!--Play again button-->
+        <div class="d-none play-btn" id="playAgain">
+            <button onclick="playAgain()">Play Again</button>
+        </div>
+        <!--Try again button-->
+        <div class="d-none play-btn" id="tryAgain">
+            <button onclick="playAgain()">Try Again</button>
+        </div>
     </div>
 </body>
 
