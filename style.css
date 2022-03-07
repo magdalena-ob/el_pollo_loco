@@ -294,8 +294,8 @@ canvas {
         right: unset;
         top: unset;
     }
-
-    .canvas {
+  
+    canvas {
         height: 100% !important;
         width: 100vh !important;
     }
