@@ -252,17 +252,12 @@ canvas {
     display: none;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1200px) {
     body {
         /*transform: rotate(90deg);*/
         position: relative;
         overflow: hidden;
     }
-
-    /*html, body
-    {
-        height: 100%;
-    }*/
 
     .wrapper {
         transform: rotate(90deg);
@@ -274,9 +269,6 @@ canvas {
         
         height:100vw;
         width:100vh;
-        
-       /* background-color:#000;
-        color:#fff;*/
     
         overflow:auto;
         display: flex;
